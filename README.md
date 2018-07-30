@@ -8,9 +8,9 @@ mysql主从配置（基于docker）
         docker pull docker.io/mysql
 #docker容器创建
 --------------------
-##master容器创建启动
+        ##master容器创建启动
         docker run -p 3308:3306 --name mysql_3308 -v /home/docker/mysql/mysql_3308/data:/var/lib/mysql -v /home/docker/mysql/mysql_3308/conf:/etc/mysql/conf.d -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=123456 -d 8d99edb9fd40
-##slave容器创建启动
+        ##slave容器创建启动
         docker run -p 3309:3306 --name mysql_3309 -v /home/docker/mysql/mysql_3309/data:/var/lib/mysql -v /home/docker/mysql/mysql_3309/conf:/etc/mysql/conf.d -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=123456 -d 8d99edb9fd40
         -p 3308:3306 将容器3306端口映射到主机3308端口
         --name mysql_3308   指定容器名
@@ -25,6 +25,7 @@ mysql主从配置（基于docker）
         增加以下内容
         [mysqld]
         server_id=100 设置server_id，一般设置为IP，同一局域网内注意要唯一
+        binlog-do-db=test   复制过滤：需要备份的数据库
         binlog-ignore-db=mysql 复制过滤：也就是指定哪个数据库不用同步（mysql库一般不同步）
         log-bin=edu-mysql-bin   开启二进制日志功能，可以随便取，最好有含义（关键就是这里了）
         binlog_cache_size=1M    为每个session 分配的内存，在事务过程中用来存储二进制日志的缓存
@@ -37,6 +38,7 @@ mysql主从配置（基于docker）
         增加以下内容
         [mysqld]
         server_id=102   设置server_id，一般设置为IP，同一局域网内注意要唯一
+        binlog-do-db=test   复制过滤：需要备份的数据库
         binlog-ignore-db=mysql  复制过滤：也就是指定哪个数据库不用同步（mysql库一般不同步）
         log-bin=edu-mysql-bin   开启二进制日志功能，可以随便取，最好有含义（关键就是这里了）
         binlog_cache_size=1M    为每个session 分配的内存，在事务过程中用来存储二进制日志的缓存
