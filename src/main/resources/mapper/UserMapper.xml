@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxt.mysql.masterSlave.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.mxt.mysql.masterSlave.model.User">
+        <result column="user_id" property="userId" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="user_name" property="userName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        <result column="user_password" property="userPassword" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="columns">
+        user_id,user_name,sex,user_password
+        
+    </sql>
+    <sql id="completeColumns">
+        user.user_id,user.user_name,user.sex,user.user_password
+        
+    </sql>
+    <insert id="insert" parameterType="com.mxt.mysql.masterSlave.model.User">
+        insert into user (
+        <include refid="columns"/>) 
+        values (
+        #{userId, jdbcType=INTEGER},#{userName, jdbcType=VARCHAR},#{sex, jdbcType=INTEGER},#{userPassword, jdbcType=VARCHAR}
+        
+        )
+    </insert>
+    <update id="update" parameterType="com.mxt.mysql.masterSlave.model.User">
+        update user set
+        user_name = #{userName, jdbcType=VARCHAR},
+        sex = #{sex, jdbcType=INTEGER},
+        user_password = #{userPassword, jdbcType=VARCHAR}
+        where user_id = #{userId, jdbcType=INTEGER}
+    </update>
+    <select id="getByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="columns"/> from user where user_id = #{userId, jdbcType=INTEGER}
+    </select>
+</mapper>

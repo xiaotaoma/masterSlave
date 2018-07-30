@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mxt.mysql.masterSlave.dao.extend.UserExtendMapper">
+    <select id="list" parameterType="com.zkzn.common.utils.response.PageQuery"
+            resultMap="com.mxt.mysql.masterSlave.dao.UserMapper.BaseResultMap">
+        select * from user
+        where 1=1
+        <include refid="query"/>
+        order by user_id desc
+    </select>
+    <select id="count" parameterType="com.zkzn.common.utils.response.PageQuery" resultType="java.lang.Integer">
+        select count(*) from user
+        <include refid="query"/>
+    </select>
+    <sql id="query">
+        <if test="query.userId != null">
+            and user_id = {query.userId}
+        </if>
+    </sql>
+</mapper>
