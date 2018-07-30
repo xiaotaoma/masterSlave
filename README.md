@@ -8,9 +8,9 @@ mysql主从配置（基于docker）
         docker pull docker.io/mysql
 #docker容器创建
 --------------------
-##master容器创建启动
-        docker run -p 3308:3306 --name mysql_3308 -v /home/docker/mysql/mysql_3308/data:/var/lib/mysql -v /home/docker/mysql/mysql_3308/conf:/etc/mysql/conf.d -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=123456 -d 8d99edb9fd40
-##slave容器创建启动
+        ##master容器创建启动
+        docker run -p 3308:3306 --name mysql_3308 -v /home/docker/mysql/mysql_3308/data:/var/lib/mysql -v       /home/docker/mysql/mysql_3308/conf:/etc/mysql/conf.d -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=123456 -d 8d99edb9fd40
+        ##slave容器创建启动
         docker run -p 3309:3306 --name mysql_3309 -v /home/docker/mysql/mysql_3309/data:/var/lib/mysql -v /home/docker/mysql/mysql_3309/conf:/etc/mysql/conf.d -e MYSQL_ROOT_HOST=% -e MYSQL_ROOT_PASSWORD=123456 -d 8d99edb9fd40
         -p 3308:3306 将容器3306端口映射到主机3308端口
         --name mysql_3308   指定容器名
